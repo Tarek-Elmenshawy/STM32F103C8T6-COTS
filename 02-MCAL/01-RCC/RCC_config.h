@@ -1,9 +1,9 @@
 /****************************************************************/
 /***********     Author    :  Tarek Elmenshawy       ************/
 /***********     File Name :  RCC_config.h	         ************/
-/***********     Version   :  V0.1                   ************/
+/***********     Version   :  V0.2                   ************/
 /***********     Date      :  08-9-2021              ************/
-/***********     Function  :                         ************/
+/***********     Function  :  RCC Config Handler	 ************/
 /****************************************************************/
 
 /****************************************************************/
@@ -32,12 +32,17 @@
 /*							2- RCC_PLL_HSE_DEV_BY_2				*/
 /*							3- RCC_PLL_HSE						*/
 /*																*/
+/*				  HSE Bypass:									*/
+/*							1- RCC_PLL_HSE_DISABLE_BYPASS		*/
+/*							2- RCC_PLL_HSE_ENABLE_BYPASS		*/
+/*																*/
 /*	Note: Select value only if you have PLL as input clock		*/
 /*		  source												*/
 /*																*/
 /****************************************************************/
 #if RCC_CLOCK_TYPE == RCC_PLL
 #define RCC_PLL_SOURCE				RCC_PLL_HSE_DEV_BY_2
+#define RCC_PLL_HSE_BYPASS			RCC_PLL_HSE_DISABLE_BYPASS			
 #endif
 
 /****************************************************************/

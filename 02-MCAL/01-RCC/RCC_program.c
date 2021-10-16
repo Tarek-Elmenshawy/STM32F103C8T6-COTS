@@ -1,14 +1,16 @@
 /***************************************************************/																										
 /***********     Author    :  Tarek Elmenshawy       ***********/
 /***********     File Name :  RCC_program.c          ***********/
-/***********     Version   :  V0.1                   ***********/
+/***********     Version   :  V0.2                   ***********/
 /***********     Date      :  08-9-2021              ***********/
 /***********     Function  :  RCC Handler			 ***********/
 /***************************************************************/
 
+/* Include Libraries */
 #include "std_types.h"
 #include "bit_math.h"
 
+/* Include RCC Driver Header files*/
 #include "RCC_interface.h"
 #include "RCC_private.h"
 #include "RCC_config.h"
@@ -65,17 +67,27 @@ void MRCC_voidInitSysClock(void)
 		/* Select PLL input clock source */
 		#if   RCC_PLL_SOURCE == RCC_PLL_HSI_DEV_BY_2
 			
-			SET_BIT(MRCC->RCC_CR  , RCC_CR_HSION_BIT);							// Enable HSI clock with no bypass
+			SET_BIT(MRCC->RCC_CR  , RCC_CR_HSION_BIT);							// Enable HSI clock
 			CLR_BIT(MRCC->RCC_CFGR, RCC_CFGR_PLLSRC_BIT);						// Set (HIS clock / 2) as PLL clock source
 			
 		#elif RCC_PLL_SOURCE == RCC_PLL_HSE_DEV_BY_2
 			
-			SET_BIT(MRCC->RCC_CR, RCC_CR_HSEON_BIT);							// Enable HSE clock with no bypass
+			#if RCC_PLL_HSE_BYPASS == RCC_PLL_HSE_ENABLE_BYPASS
+				MRCC->RCC_CR |= ((1 << RCC_CR_HSEON_BIT) | (1 << RCC_CR_HSEBYP_BIT)); // Enable HSE clock with bypass
+			#else
+				SET_BIT(MRCC->RCC_CR, RCC_CR_HSEON_BIT);						// Enable HSE clock with no bypass
+			#endif
+			
 			MRCC->RCC_CFGR |= ((1 << RCC_CFGR_PLLSRC_BIT) | (1 << RCC_CFGR_PLLXTPRE_BIT));// Select (HES clock / 2) as PLL clock source
 			
 		#elif RCC_PLL_SOURCE == RCC_PLL_HSE
 			
-			SET_BIT(MRCC->RCC_CR  , RCC_CR_HSEON_BIT);							// Enable HSE clock with no bypass
+			#if RCC_PLL_HSE_BYPASS == RCC_PLL_HSE_ENABLE_BYPASS
+				MRCC->RCC_CR |= ((1 << RCC_CR_HSEON_BIT) | (1 << RCC_CR_HSEBYP_BIT)); // Enable HSE clock with bypass
+			#else
+				SET_BIT(MRCC->RCC_CR, RCC_CR_HSEON_BIT);						// Enable HSE clock with no bypass
+			#endif
+			
 			SET_BIT(MRCC->RCC_CFGR, RCC_CFGR_PLLSRC_BIT);						// Select HES clock as PLL clock source
 			
 		#else

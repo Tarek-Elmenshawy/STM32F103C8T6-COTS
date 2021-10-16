@@ -1,10 +1,10 @@
-/***************************************************************/
-/***********     Author    :  Tarek Elmenshawy       ***********/
-/***********     File Name :  RCC_interface.h        ***********/
-/***********     Version   :  V0.1                   ***********/
-/***********     Date      :  08-9-2021              ***********/
-/***********     Function  :                         ***********/
-/***************************************************************/
+/****************************************************************/
+/***********     Author    :  Tarek Elmenshawy        ***********/
+/***********     File Name :  RCC_interface.h         ***********/
+/***********     Version   :  V0.2                    ***********/
+/***********     Date      :  08-9-2021               ***********/
+/***********     Function  :  RCC Public Contents	  ***********/
+/****************************************************************/
 
 /****************************************************************/
 /***	   Guard of file will call one time in .c file		  ***/
@@ -12,84 +12,6 @@
 
 #ifndef RCC_INTERFACE_H
 #define RCC_INTERFACE_H
-
-
-/****************************************************************/
-/*																*/
-/*			Clock Types: 										*/
-/*						1- RCC_HSI								*/
-/*						2- RCC_HSE								*/
-/*						3- RCC_HSE_BYPASS						*/
-/*						4- RCC_PLL								*/
-/*																*/
-/****************************************************************/
-#define RCC_HSI			0
-#define RCC_HSE			1
-#define RCC_HSE_BYPASS	2
-#define RCC_PLL			3
-
-
-/****************************************************************/
-/*																*/
-/*			PLL Source Types:									*/
-/*							1- RCC_PLL_HSI_DEV_BY_2				*/
-/*							2- RCC_PLL_HSE_DEV_BY_2				*/
-/*							3- RCC_PLL_HSE						*/
-/*																*/
-/****************************************************************/
-#define RCC_PLL_HSI_DEV_BY_2	0
-#define RCC_PLL_HSE_DEV_BY_2	1
-#define RCC_PLL_HSE				2
-
-
-/****************************************************************/
-/*																*/
-/*			Clock Factor For PLL:								*/
-/*							1- RCC_PLL_CLOCK_MUL_BY_2			*/
-/*							2- RCC_PLL_CLOCK_MUL_BY_3			*/
-/*							3- RCC_PLL_CLOCK_MUL_BY_4			*/
-/*							4- RCC_PLL_CLOCK_MUL_BY_5			*/
-/*							5- RCC_PLL_CLOCK_MUL_BY_6			*/
-/*							6- RCC_PLL_CLOCK_MUL_BY_7			*/
-/*							7- RCC_PLL_CLOCK_MUL_BY_8			*/
-/*							8- RCC_PLL_CLOCK_MUL_BY_9			*/
-/*							9- RCC_PLL_CLOCK_MUL_BY_10			*/
-/*							10- RCC_PLL_CLOCK_MUL_BY_11			*/
-/*							11- RCC_PLL_CLOCK_MUL_BY_12			*/
-/*							12- RCC_PLL_CLOCK_MUL_BY_13			*/
-/*							13- RCC_PLL_CLOCK_MUL_BY_14			*/
-/*							14- RCC_PLL_CLOCK_MUL_BY_15			*/
-/*							15- RCC_PLL_CLOCK_MUL_BY_16			*/
-/*																*/
-/****************************************************************/
-#define RCC_PLL_CLOCK_MUL_BY_2	(0b0000)
-#define RCC_PLL_CLOCK_MUL_BY_3	(0b0001)
-#define RCC_PLL_CLOCK_MUL_BY_4	(0b0010)
-#define RCC_PLL_CLOCK_MUL_BY_5	(0b0011)
-#define RCC_PLL_CLOCK_MUL_BY_6	(0b0100)
-#define RCC_PLL_CLOCK_MUL_BY_7	(0b0101)
-#define RCC_PLL_CLOCK_MUL_BY_8	(0b0110)
-#define RCC_PLL_CLOCK_MUL_BY_9	(0b0111)
-#define RCC_PLL_CLOCK_MUL_BY_10	(0b1000)
-#define RCC_PLL_CLOCK_MUL_BY_11	(0b1001)
-#define RCC_PLL_CLOCK_MUL_BY_12	(0b1010)
-#define RCC_PLL_CLOCK_MUL_BY_13	(0b1011)
-#define RCC_PLL_CLOCK_MUL_BY_14	(0b1100)
-#define RCC_PLL_CLOCK_MUL_BY_15	(0b1101)
-#define RCC_PLL_CLOCK_MUL_BY_16	(0b1110)
-
-
-/****************************************************************/
-/*																*/
-/*	Clock Security System:										*/
-/*		1- RCC_ENABLE_CLOCK_SECURITY_SYSTEM						*/
-/*			- To set HSI by H.W. when there is failure in HSE	*/
-/*																*/
-/*		2- RCC_DISABLE_CLOCK_SECURITY_SYSTEM					*/
-/*																*/
-/****************************************************************/
-#define RCC_ENABLE_CLOCK_SECURITY_SYSTEM	0
-#define RCC_DISABLE_CLOCK_SECURITY_SYSTEM	1
 
 
 /****************************************************************/

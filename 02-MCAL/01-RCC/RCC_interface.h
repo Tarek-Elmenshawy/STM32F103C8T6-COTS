@@ -48,7 +48,7 @@
 
 /****************************************************************/
 /*																*/
-/*			Periphral Clock Enable For APB2 Bus:				*/
+/*			Peripheral Clock Enable For APB2 Bus:				*/
 /*					1- RCC_AFIO									*/
 /*					2- RCC_IOPA									*/
 /*					3- RCC_IOPB									*/

@@ -15,11 +15,11 @@
 
 /****************************************************************/
 /*																*/
-/*			Clock Types: 										*/
-/*						1- RCC_HSI								*/
-/*						2- RCC_HSE								*/
-/*						3- RCC_HSE_BYPASS						*/
-/*						4- RCC_PLL								*/
+/*			Clock System Types: 								*/
+/*							  1- RCC_HSI						*/
+/*							  2- RCC_HSE						*/
+/*							  3- RCC_HSE_BYPASS					*/
+/*							  4- RCC_PLL						*/
 /*																*/
 /****************************************************************/
 #define RCC_CLOCK_TYPE				RCC_HSE

@@ -10,7 +10,7 @@
 #include "std_types.h"
 #include "bit_math.h"
 
-/* Include RCC Driver Header files*/
+/* Include RCC Driver Header Files*/
 #include "RCC_interface.h"
 #include "RCC_private.h"
 #include "RCC_config.h"
@@ -78,7 +78,7 @@ void MRCC_voidInitSysClock(void)
 				SET_BIT(MRCC->RCC_CR, RCC_CR_HSEON_BIT);						// Enable HSE clock with no bypass
 			#endif
 			
-			MRCC->RCC_CFGR |= ((1 << RCC_CFGR_PLLSRC_BIT) | (1 << RCC_CFGR_PLLXTPRE_BIT));// Select (HES clock / 2) as PLL clock source
+			MRCC->RCC_CFGR |= ((1 << RCC_CFGR_PLLSRC_BIT) | (1 << RCC_CFGR_PLLXTPRE_BIT));// Select (HSE clock / 2) as PLL clock source
 			
 		#elif RCC_PLL_SOURCE == RCC_PLL_HSE
 			
@@ -88,13 +88,13 @@ void MRCC_voidInitSysClock(void)
 				SET_BIT(MRCC->RCC_CR, RCC_CR_HSEON_BIT);						// Enable HSE clock with no bypass
 			#endif
 			
-			SET_BIT(MRCC->RCC_CFGR, RCC_CFGR_PLLSRC_BIT);						// Select HES clock as PLL clock source
+			SET_BIT(MRCC->RCC_CFGR, RCC_CFGR_PLLSRC_BIT);						// Select HSE clock as PLL clock source
 			
 		#else
 			#error("Wrong PLL input clock source configuration")
 		#endif
 		
-		SET_BIT(MRCC->RCC_CR, RCC_CR_PLLON_BIT);								// Enable HSI clock
+		SET_BIT(MRCC->RCC_CR, RCC_CR_PLLON_BIT);								// Enable PLL clock
 		
 		/* Waiting until PLL ready flag is set */
 		while((GET_BIT(MRCC->RCC_CR, RCC_CR_PLLRDY_BIT) == 0) && (Loc_u32TimeOut < 100000)) Loc_u32TimeOut++;

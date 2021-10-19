@@ -15,8 +15,8 @@
 
 typedef struct{
 	volatile u32 RCC_CR;						/* Clock Control Register 					*/
-	volatile u32 RCC_CFGR;      				/* Clock Configuration Register 			*/
-	volatile u32 RCC_CIR;       				/* Clock Interrupt Register 				*/
+	volatile u32 RCC_CFGR;						/* Clock Configuration Register 			*/
+	volatile u32 RCC_CIR;						/* Clock Interrupt Register 				*/
 	volatile u32 RCC_APB2RSTR;  				/* APB2 Peripheral Reset Register 			*/
 	volatile u32 RCC_APB1RSTR;  				/* APB1 Peripheral Reset Register 			*/
 	volatile u32 RCC_AHBENR;    				/* AHB Peripheral Clock Enable Register 	*/

@@ -48,7 +48,7 @@
 #define	GPIO_INPUT_ADC			(0b0000)
 #define	GPIO_INPUT_FLOATING		(0b0100)
 #define	GPIO_INPUT_PULL_UP		(0b1000)
-#define	GPIO_INPUT_PULL_DOWN	(0b1000)
+#define	GPIO_INPUT_PULL_DOWN	(0b1100)
 
 
 /* Configurations for output speed 10 MHz */

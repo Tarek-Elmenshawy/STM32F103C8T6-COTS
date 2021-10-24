@@ -57,3 +57,26 @@ u8 MNVIC_u8GetActiveFlag(u8 Copy_u8InterruptID)
 	return Local_u8Flag;
 }
 
+
+void MNVIC_voidSetPriority(s8 Copy_u8InterruptID, u8 Copy_u8GroupPriority, u8 Copy_u8SubPriority, u32 Copy_GroupControl)												
+{
+	/* Calculate the total priority corresponding to group priority and sub priority */
+	u8 Local_Priority = (Copy_u8SubPriority | (Copy_u8GroupPriority << ((Copy_GroupControl - 0x05FA0300) / 0x100)));
+	
+	/* Core Peripherals have a negative sign */
+	if(Copy_u8InterruptID < 0)
+	{
+		/* Set the total priority in MSB */
+		MSCB->SCB_SHPR[Copy_u8InterruptID + 12] =  (Local_Priority << 4);
+	}
+	/* External Peripherals have a positive sign */
+	else if(Copy_u8InterruptID >= 0)
+	{
+		/* Set the total priority in MSB */
+		MNVIC->NVIC_IPR[Copy_u8InterruptID] = (Local_Priority << 4);
+	}
+	
+	/* Determine the split of group priority from subpriority */
+	MSCB->SCB_AIRCR = Copy_GroupControl;
+}
+

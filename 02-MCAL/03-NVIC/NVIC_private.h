@@ -40,7 +40,7 @@ typedef struct{
 	volatile u8  SCB_SHPR[12];						/* System Handler Priority Registers				*/
 	volatile u32 SCB_SHCSR;							/* System Handler Control and State Register		*/
 	volatile u32 SCB_CFSR;							/* Configurable Fault Status Register				*/
-	volatile u32 SCB_HFSR							/* Hard Fault status Register						*/
+	volatile u32 SCB_HFSR;							/* Hard Fault status Register						*/
 	volatile u32 SCB_MMFAR;							/* Memory Management Fault Address Register			*/
 	volatile u32 SCB_BFAR;							/* Bus Fault Address Register						*/
 	

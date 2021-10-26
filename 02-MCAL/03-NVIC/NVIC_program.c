@@ -69,6 +69,7 @@ void MNVIC_voidSetPriority(s8 Copy_u8InterruptID, u8 Copy_u8GroupPriority, u8 Co
 		/* Set the total priority in MSB */
 		MSCB->SCB_SHPR[Copy_u8InterruptID + 12] =  (Local_Priority << 4);
 	}
+
 	/* External Peripherals have a positive sign */
 	else if(Copy_u8InterruptID >= 0)
 	{

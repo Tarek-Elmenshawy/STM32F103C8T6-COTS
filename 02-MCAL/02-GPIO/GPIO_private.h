@@ -26,10 +26,19 @@ typedef struct{
 
 #define	GPIO_LCKK	16							/* Lock Key: Bit 16 in LCKR			*/
 
+/* Function Prototypes */
 #define	MGPIOA	((volatile GPIO *)0x40010800)	/* Base Address of GPIOA 			*/
 #define	MGPIOB	((volatile GPIO *)0x40010C00)	/* Base Address of GPIOB 			*/
 #define	MGPIOC	((volatile GPIO *)0x40011000)	/* Base Address of GPIOC 			*/
 
-
+/****************************************************************/
+/*																*/
+/*	Set Pin Value optimization Configuration:					*/
+/*					1- GPIO_ENABLE_OPTOMISATION					*/
+/*					2- GPIO_DISABLE_OPTOMISATION				*/
+/*																*/
+/****************************************************************/
+#define GPIO_ENABLE_OPTOMISATION	1
+#define GPIO_DISABLE_OPTOMISATION	0
 
 #endif	/* GPIO_PRIVATE_H */

@@ -34,6 +34,12 @@
 #define NVIC_SYS_TICK		-1				/* System tick timer 						*/
 ////////////////////////////////////////////////////////////////
 
+#define NVIC_EXTI0_ID		6				/* EXTI Line 0 Interrupt					*/
+#define NVIC_EXTI1_ID		7				/* EXTI Line 1 Interrupt					*/
+#define NVIC_EXTI2_ID		8				/* EXTI Line 2 Interrupt					*/
+#define NVIC_EXTI3_ID		9				/* EXTI Line 3 Interrupt					*/
+#define NVIC_EXTI0_ID		10				/* EXTI Line 4 Interrupt					*/
+
 /* Function Prototypes */
 void MNVIC_voidEnableInterrupt	(u8 Copy_u8InterruptID);
 void MNVIC_voidDisableInterrupt	(u8 Copy_u8InterruptID);

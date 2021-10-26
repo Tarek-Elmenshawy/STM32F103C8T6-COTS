@@ -311,12 +311,12 @@ void MGPIO_voidSetPinValue(u8 Copy_u8PORT, u8 Copy_u8PIN, u8 Copy_u8Value)
 	{
 		case GPIOA	:
 			/* Set PIN value according to Copy_u8Value */
-			#if GPIO_OPTOMISATION_STATUS == GPIO_ENABLE_OPTOMISATION
+			#if GPIO_OPTOMISATION_STATUS == GPIO_DISABLE_OPTOMISATION
 			
 				if(Copy_u8Value) SET_BIT(MGPIOA->GPIO_ODR, Copy_u8PIN);
 				else CLR_BIT(MGPIOA->GPIO_ODR, Copy_u8PIN);
 				
-			#elif GPIO_OPTOMISATION_STATUS == GPIO_DISABLE_OPTOMISATION
+			#elif GPIO_OPTOMISATION_STATUS == GPIO_ENABLE_OPTOMISATION
 				
 				/* 
 				 *	Using BERR and BRR registers consumes number of instructions
@@ -333,12 +333,12 @@ void MGPIO_voidSetPinValue(u8 Copy_u8PORT, u8 Copy_u8PIN, u8 Copy_u8Value)
 			
 		case GPIOB	:
 			/* Set PIN value according to Copy_u8Value */
-			#if GPIO_OPTOMISATION_STATUS == GPIO_ENABLE_OPTOMISATION
+			#if GPIO_OPTOMISATION_STATUS == GPIO_DISABLE_OPTOMISATION
 			
 				if(Copy_u8Value) SET_BIT(MGPIOB->GPIO_ODR, Copy_u8PIN);
 				else CLR_BIT(MGPIOB->GPIO_ODR, Copy_u8PIN);
 				
-			#elif GPIO_OPTOMISATION_STATUS == GPIO_DISABLE_OPTOMISATION
+			#elif GPIO_OPTOMISATION_STATUS == GPIO_ENABLE_OPTOMISATION
 				
 				/* 
 				 *	Using BERR and BRR registers consumes number of instructions
@@ -355,15 +355,15 @@ void MGPIO_voidSetPinValue(u8 Copy_u8PORT, u8 Copy_u8PIN, u8 Copy_u8Value)
 			
 		case GPIOC	:
 			/* Set PIN value according to Copy_u8Value */
-			#if GPIO_OPTOMISATION_STATUS == GPIO_ENABLE_OPTOMISATION
+			#if GPIO_OPTOMISATION_STATUS == GPIO_DISABLE_OPTOMISATION
 			
 				if(Copy_u8Value) SET_BIT(MGPIOC->GPIO_ODR, Copy_u8PIN);
 				else CLR_BIT(MGPIOC->GPIO_ODR, Copy_u8PIN);
 				
-			#elif GPIO_OPTOMISATION_STATUS == GPIO_DISABLE_OPTOMISATION
+			#elif GPIO_OPTOMISATION_STATUS == GPIO_ENABLE_OPTOMISATION
 				
 				/* 
-				 *	Using BERR and BRR regidters consumes number of instructions 
+				 *	Using BERR and BRR registers consumes number of instructions
 				 *	fewer than using ODR register, so BSRR and BRR registers provides
 				 *	high performance.
 				 */

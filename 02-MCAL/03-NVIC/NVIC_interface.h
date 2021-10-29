@@ -24,7 +24,7 @@
 /* SCB_SHPR1 */
 #define NVIC_MEM_MANAGE		-12				/* Memory management 						*/
 #define NVIC_BUS_FAULT		-11				/* Prefetch fault, memory access fault 		*/
-#definr NVIC_USAGE_FAULT	-10				/* Undefined instruction or illegal state 	*/
+#define NVIC_USAGE_FAULT	-10				/* Undefined instruction or illegal state 	*/
 ////////////////////////////////////////////////////////////////
 /* SCB_SHPR2 */
 #define NIVC_SV_CALL		-5				/* System service call via SWI instruction	*/
@@ -34,11 +34,22 @@
 #define NVIC_SYS_TICK		-1				/* System tick timer 						*/
 ////////////////////////////////////////////////////////////////
 
-#define NVIC_EXTI0_ID		6				/* EXTI Line 0 Interrupt					*/
-#define NVIC_EXTI1_ID		7				/* EXTI Line 1 Interrupt					*/
-#define NVIC_EXTI2_ID		8				/* EXTI Line 2 Interrupt					*/
-#define NVIC_EXTI3_ID		9				/* EXTI Line 3 Interrupt					*/
-#define NVIC_EXTI0_ID		10				/* EXTI Line 4 Interrupt					*/
+#define NVIC_EXTI0_IRQ		6				/* EXTI Line 0 Interrupt					*/
+#define NVIC_EXTI1_IRQ		7				/* EXTI Line 1 Interrupt					*/
+#define NVIC_EXTI2_IRQ		8				/* EXTI Line 2 Interrupt					*/
+#define NVIC_EXTI3_IRQ		9				/* EXTI Line 3 Interrupt					*/
+#define NVIC_EXTI4_IRQ		10				/* EXTI Line 4 Interrupt					*/
+#define NVIC_EXTI5_IRQ		23				/* EXTI Line 5 Interrupt					*/
+#define NVIC_EXTI6_IRQ		23				/* EXTI Line 6 Interrupt					*/
+#define NVIC_EXTI7_IRQ		23				/* EXTI Line 7 Interrupt					*/
+#define NVIC_EXTI8_IRQ		23				/* EXTI Line 8 Interrupt					*/
+#define NVIC_EXTI9_IRQ		23				/* EXTI Line 9 Interrupt					*/
+#define NVIC_EXTI10_IRQ		40				/* EXTI Line 10 Interrupt					*/
+#define NVIC_EXTI11_IRQ		40				/* EXTI Line 11 Interrupt					*/
+#define NVIC_EXTI12_IRQ		40				/* EXTI Line 12 Interrupt					*/
+#define NVIC_EXTI13_IRQ		40				/* EXTI Line 13 Interrupt					*/
+#define NVIC_EXTI14_IRQ		40				/* EXTI Line 14 Interrupt					*/
+#define NVIC_EXTI15_IRQ		40				/* EXTI Line 15 Interrupt					*/
 
 /* Function Prototypes */
 void MNVIC_voidEnableInterrupt	(u8 Copy_u8InterruptID);

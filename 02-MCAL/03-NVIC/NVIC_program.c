@@ -74,7 +74,7 @@ void MNVIC_voidSetPriority(s8 Copy_u8InterruptID, u8 Copy_u8GroupPriority, u8 Co
 	else if(Copy_u8InterruptID >= 0)
 	{
 		/* Set the total priority in MSB */
-		MNVIC->NVIC_IPR[Copy_u8InterruptID] = (Local_Priority << 4);
+		MNVIC->NVIC_IPR[(u8)Copy_u8InterruptID] = (Local_Priority << 4);
 	}
 	
 	/* Determine the split of group priority from subpriority */

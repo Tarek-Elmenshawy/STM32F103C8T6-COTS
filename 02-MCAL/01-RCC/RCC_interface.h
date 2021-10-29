@@ -142,7 +142,6 @@
 
 
 void MRCC_voidInitSysClock(void);
-
 void MRCC_voidEnableClock(u8 Copy_u8BusId, u8 Copy_u8PerId);
 void MRCC_voidDisableClock(u8 Copy_u8BusId, u8 Copy_u8PerId);
 

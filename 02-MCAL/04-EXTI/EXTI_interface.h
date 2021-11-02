@@ -41,7 +41,7 @@ void MEXTI_voidEnable			(u8 Copy_u8EXTILine);
 void MEXTI_voidDisable			(u8 Copy_u8EXTILine);
 void MEXTI_voidSoftwareTrigger	(u8 Copy_u8EXTILine);
 void MEXTI_voidClearPendingFlag (u8 Copy_u8EXTILine);
-void MEXTI_voidSetCallback		(u8 Copy_u8EXTILine, void (*ptrCallback)(void));
+void MEXTI_voidSetCallback		(u8 Copy_u8EXTILine, void (*Copy_ptrCallback)(void));
 
 
 #endif	/* EXTI_INTERFACE_H */

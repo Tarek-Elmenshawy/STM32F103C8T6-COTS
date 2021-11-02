@@ -30,9 +30,13 @@ typedef struct{
 #define MSTK	((volatile STK_TypeDef *)0xE000E010)	/* Base address of SysTick				*/
 
 #define STK_AHB_CLOCK			1
-#define STK_AHB_CLOCK_BY_8		2
+#define STK_AHB_CLOCK_BY_8		3
 
-#define STK_SINGLE_INTERVAL		1
-#define STK_PERIODIC_INTERVAL	2
+#define STK_SINGLE_INTERVAL		2
+#define STK_PERIODIC_INTERVAL	4
+
+/* Global variables */
+static void (* MSTK_Callback)(void);	  						/* SysTick callback function pointer */
+volatile u8 STK_u8IntervalState;  								/* Global variable to handle interval state */
 
 #endif /* STK_PRIVATE_H */

@@ -19,9 +19,6 @@
 #include "STK_private.h"
 #include "STK_config.h"
 
-void (* MSTK_Callback)(void);	  								/* SysTick callback function pointer */
-volatile u8 STK_u8IntervalState;  								/* Global variable to handle interval state */
-
 void MSTK_voidInit(void)
 {
 	#if STK_CLOCK_SOURCE == STCK_AHB_CLOCK
@@ -75,6 +72,7 @@ void MSTC_voidStopInterval(void)
 {
 	CLR_BIT(MSTK->STK_CTRL, STK_ENABLE_BIT);					/* Clear SysTick enable bit */
 }
+
 u32  MSTK_u32GetElapsedTime(void)
 {
 	return (MSTK->STK_LOAD - MSTK->STK_VAL);					/* Return elapsed time calculated by [start_ticks - current_ticks] */

@@ -1,7 +1,7 @@
 /*******************************************************************/
 /***********	Author	 :  Tarek Elmenshawy			************/
 /***********	File Name:  LED_MATRIX_program.c		************/
-/***********	Version	 :  V0.1						************/
+/***********	Version	 :  V0.2						************/
 /***********	Date	 :  5-10-2021					************/
 /***********	Function :  LES_MATRIX Handler			************/
 /*******************************************************************/
@@ -35,60 +35,104 @@ void HLED_MATRIX_voidInit(void)
 
 void HLED_MATRIX_voidDisplayFrame(u8 *Copy_u8Frame)
 {
-	u8 Local_u8Index = 0;
-	
-	while(1)
-	{
-		#if   LED_MATRIX_OPERATION_MODE == LED_MATRIX_COL_CONTROL
-			
-			for(Local_u8Index = 0; Local_u8Index < LED_MATRIX_NUM_COLS; Local_u8Index++)
-			{
-				/* Disable all columns */
-				HLED_MATRIX_voidDisableAllLines(LED_MATRIX_u8ColPins, LED_MATRIX_NUM_COLS);
-				
-				/* Set the corresponding row value */
-				HLED_MATRIX_voidSetLineValue(LED_MATRIX_u8RowPins, LED_MATRIX_NUM_ROWS, Copy_u8Frame[Local_u8Index]);
-				
-				/* Enable the corresponding column */
-				#if   LED_MATRIX_CONTROL_MODE == LED_MATRIX_ACTIVE_LOW
-					MGPIO_voidSetPinValue(LED_MATRIX_u8ColPins[Local_u8Index][0], LED_MATRIX_u8ColPins[Local_u8Index][1], 0);
-				#elif LED_MATRIX_CONTROL_MODE == LED_MATRIX_ACTIVE_HIGH
-					MGPIO_voidSetPinValue(LED_MATRIX_u8ColPins[Local_u8Index][0], LED_MATRIX_u8ColPins[Local_u8Index][1], 1);
-				#else
-					#error("Wrong LED MATRIX operation control mode configuration")
-				#endif
-
-				/* Delay for some time */
-				MSTK_voidSetBusyWait(2500);
-			}
-			
-		#elif LED_MATRIX_OPERATION_MODE == LED_MATRIX_ROW_CONTROL
-			
-			for(Local_u8Index = 0; Local_u8Index < LED_MATRIX_NUM_ROWS; Local_u8Index++)
-			{
-				/* Disable all rows */
-				HLED_MATRIX_voidDisableAllLines(LED_MATRIX_u8RowPins, LED_MATRIX_NUM_ROWS);
-				
-				/* Set the corresponding column value */
-				HLED_MATRIX_voidSetLineValue(LED_MATRIX_u8ColPins, LED_MATRIX_NUM_COLS, Copy_u8Frame[Local_u8Index]);
-				
-				/* Enable the corresponding row */
-				#if   LED_MATRIX_CONTROL_MODE == LED_MATRIX_ACTIVE_LOW
-					MGPIO_voidSetPinValue(LED_MATRIX_u8RowPins[Local_u8Index][0], LED_MATRIX_u8RowPins[Local_u8Index][1], 0);
-				#elif LED_MATRIX_CONTROL_MODE == LED_MATRIX_ACTIVE_HIGH
-					MGPIO_voidSetPinValue(LED_MATRIX_u8RowPins[Local_u8Index][0], LED_MATRIX_u8RowPins[Local_u8Index][1], 1);
-				#else
-					#error("Wrong LED MATRIX operation control mode configuration")
-				#endif
-
-				/* Delay for some time */
-				MSTK_voidSetBusyWait(2500);
-			}
-			
-		#else 
-			#error("Wrong LED MATRIX operation mode configuration")
+	#if   LED_MATRIX_OPERATION_MODE == LED_MATRIX_COL_CONTROL
+		LED_MATRIX_u8Frame = Copy_u8Frame;
+		
+		LED_MATRIX_u8CurrentIndex = 0;
+		
+		/* Disable all columns */
+		HLED_MATRIX_voidDisableAllLines(LED_MATRIX_u8ColPins, LED_MATRIX_NUM_COLS);
+		
+		/* Set the corresponding row value */
+		HLED_MATRIX_voidSetLineValue(LED_MATRIX_u8RowPins, LED_MATRIX_NUM_ROWS, Copy_u8Frame[LED_MATRIX_u8CurrentIndex]);
+		
+		/* Enable the corresponding column */
+		#if   LED_MATRIX_CONTROL_MODE == LED_MATRIX_ACTIVE_LOW
+			MGPIO_voidSetPinValue(LED_MATRIX_u8ColPins[LED_MATRIX_u8CurrentIndex][0], LED_MATRIX_u8ColPins[LED_MATRIX_u8CurrentIndex][1], 0);
+		#elif LED_MATRIX_CONTROL_MODE == LED_MATRIX_ACTIVE_HIGH
+			MGPIO_voidSetPinValue(LED_MATRIX_u8ColPins[LED_MATRIX_u8CurrentIndex][0], LED_MATRIX_u8ColPins[LED_MATRIX_u8CurrentIndex][1], 1);
+		#else
+			#error("Wrong LED MATRIX operation control mode configuration")
 		#endif
-	}
+		
+		/* Start timer */
+		MSTK_voidSetIntervalPeriodic(2500, HLED_MATRIX_voidDisplayNextLine);
+		
+	#elif LED_MATRIX_OPERATION_MODE == LED_MATRIX_ROW_CONTROL
+		LED_MATRIX_u8Frame = Copy_u8Frame;
+		
+		LED_MATRIX_u8CurrentIndex = 0;
+		
+		/* Disable all rows */
+		HLED_MATRIX_voidDisableAllLines(LED_MATRIX_u8RowPins, LED_MATRIX_NUM_ROWS);
+		
+		/* Set the corresponding column value */
+		HLED_MATRIX_voidSetLineValue(LED_MATRIX_u8ColPins, LED_MATRIX_NUM_COLS, Copy_u8Frame[LED_MATRIX_u8CurrentIndex]);
+		
+		/* Enable the corresponding row */
+		#if   LED_MATRIX_CONTROL_MODE == LED_MATRIX_ACTIVE_LOW
+			MGPIO_voidSetPinValue(LED_MATRIX_u8RowPins[LED_MATRIX_u8CurrentIndex][0], LED_MATRIX_u8RowPins[LED_MATRIX_u8CurrentIndex][1], 0);
+		#elif LED_MATRIX_CONTROL_MODE == LED_MATRIX_ACTIVE_HIGH
+			MGPIO_voidSetPinValue(LED_MATRIX_u8RowPins[LED_MATRIX_u8CurrentIndex][0], LED_MATRIX_u8RowPins[LED_MATRIX_u8CurrentIndex][1], 1);
+		#else
+			#error("Wrong LED MATRIX operation control mode configuration")
+		#endif
+
+		/* Start timer */
+		MSTK_voidSetIntervalPeriodic(2500, HLED_MATRIX_voidDisplayNextLine);
+	#else 
+		#error("Wrong LED MATRIX operation mode configuration")
+	#endif
+}
+
+static void HLED_MATRIX_voidDisplayNextLine(void)
+{
+	LED_MATRIX_u8CurrentIndex++;
+	
+	if(LED_MATRIX_u8CurrentIndex == 8) LED_MATRIX_u8CurrentIndex = 0;
+	
+	#if   LED_MATRIX_OPERATION_MODE == LED_MATRIX_COL_CONTROL
+		
+		/* Disable all columns */
+		HLED_MATRIX_voidDisableAllLines(LED_MATRIX_u8ColPins, LED_MATRIX_NUM_COLS);
+		
+		/* Set the corresponding row value */
+		HLED_MATRIX_voidSetLineValue(LED_MATRIX_u8RowPins, LED_MATRIX_NUM_ROWS, LED_MATRIX_u8Frame[LED_MATRIX_u8CurrentIndex]);
+		
+		/* Enable the corresponding column */
+		#if   LED_MATRIX_CONTROL_MODE == LED_MATRIX_ACTIVE_LOW
+			MGPIO_voidSetPinValue(LED_MATRIX_u8ColPins[LED_MATRIX_u8CurrentIndex][0], LED_MATRIX_u8ColPins[LED_MATRIX_u8CurrentIndex][1], 0);
+		#elif LED_MATRIX_CONTROL_MODE == LED_MATRIX_ACTIVE_HIGH
+			MGPIO_voidSetPinValue(LED_MATRIX_u8ColPins[LED_MATRIX_u8CurrentIndex][0], LED_MATRIX_u8ColPins[LED_MATRIX_u8CurrentIndex][1], 1);
+		#else
+			#error("Wrong LED MATRIX operation control mode configuration")
+		#endif
+		
+		/* Start timer */
+		MSTK_voidSetIntervalPeriodic(2500, HLED_MATRIX_voidDisplayNextLine);
+		
+	#elif LED_MATRIX_OPERATION_MODE == LED_MATRIX_ROW_CONTROL
+		
+		/* Disable all rows */
+		HLED_MATRIX_voidDisableAllLines(LED_MATRIX_u8RowPins, LED_MATRIX_NUM_ROWS);
+		
+		/* Set the corresponding column value */
+		HLED_MATRIX_voidSetLineValue(LED_MATRIX_u8ColPins, LED_MATRIX_NUM_COLS, LED_MATRIX_u8Frame[LED_MATRIX_u8CurrentIndex]);
+		
+		/* Enable the corresponding row */
+		#if   LED_MATRIX_CONTROL_MODE == LED_MATRIX_ACTIVE_LOW
+			MGPIO_voidSetPinValue(LED_MATRIX_u8RowPins[LED_MATRIX_u8CurrentIndex][0], LED_MATRIX_u8RowPins[LED_MATRIX_u8CurrentIndex][1], 0);
+		#elif LED_MATRIX_CONTROL_MODE == LED_MATRIX_ACTIVE_HIGH
+			MGPIO_voidSetPinValue(LED_MATRIX_u8RowPins[LED_MATRIX_u8CurrentIndex][0], LED_MATRIX_u8RowPins[LED_MATRIX_u8CurrentIndex][1], 1);
+		#else
+			#error("Wrong LED MATRIX operation control mode configuration")
+		#endif
+
+		/* Start timer */
+		MSTK_voidSetIntervalPeriodic(2500, HLED_MATRIX_voidDisplayNextLine);
+	#else 
+		#error("Wrong LED MATRIX operation mode configuration")
+	#endif
 }
 
 static void HLED_MATRIX_voidDisableAllLines(u8 Copy_u8LinePin[][2], u8 Copy_u8NumLines)

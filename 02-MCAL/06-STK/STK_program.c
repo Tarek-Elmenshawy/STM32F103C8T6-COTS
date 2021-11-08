@@ -46,12 +46,15 @@ void MSTK_voidSetBusyWait(u32 Copy_u32Ticks)
 	SET_BIT(MSTK->STK_CTRL, STK_ENABLE_BIT);					/* Set SysTick enable bit */
 	while(GET_BIT(MSTK->STK_CTRL, STK_COUNT_FLAG_BIT) == 0);	/* Wait flag polling */
 	CLR_BIT(MSTK->STK_CTRL, STK_ENABLE_BIT);					/* Clear SysTick enable bit */
+	MSTK->STK_LOAD = 0;											/* Clear SysTick reload value register */
+	MSTK->STK_VAL  = 0;											/* Clear SysTick current value register */
 }
 
 void MSTK_voidSetIntervalSingle(u32 Copy_u32Ticks, void (* Copy_ptr)(void))
 {
-	MSTK->STK_LOAD = Copy_u32Ticks;								/* Set ticks in SysTick reload value register */
+	CLR_BIT(MSTK->STK_CTRL, STK_ENABLE_BIT);					/* Clear SysTick enable bit */
 	MSTK->STK_VAL  = 0;											/* Clear SysTick current value register */
+	MSTK->STK_LOAD = Copy_u32Ticks;								/* Set ticks in SysTick reload value register */
 	SET_BIT(MSTK->STK_CTRL, STK_TICK_INT_BIT);					/* Set SysTick interrupt bit */
 	MSTK_Callback = Copy_ptr;									/* Set SysTick callback function pointer */
 	STK_u8IntervalState = STK_SINGLE_INTERVAL;					/* Set interval state as single */
@@ -60,8 +63,9 @@ void MSTK_voidSetIntervalSingle(u32 Copy_u32Ticks, void (* Copy_ptr)(void))
 
 void MSTK_voidSetIntervalPeriodic(u32 Copy_u32Ticks, void (* Copy_ptr)(void))
 {
-	MSTK->STK_LOAD = Copy_u32Ticks;								/* Set ticks in SysTick reload value register */
+	CLR_BIT(MSTK->STK_CTRL, STK_ENABLE_BIT);					/* Clear SysTick enable bit */
 	MSTK->STK_VAL  = 0;											/* Clear SysTick current value register */
+	MSTK->STK_LOAD = Copy_u32Ticks;								/* Set ticks in SysTick reload value register */
 	SET_BIT(MSTK->STK_CTRL, STK_TICK_INT_BIT);					/* Set SysTick interrupt bit */
 	MSTK_Callback = Copy_ptr;									/* Set SysTick callback function pointer */
 	STK_u8IntervalState = STK_PERIODIC_INTERVAL;				/* Set interval state as periodic */
@@ -70,25 +74,39 @@ void MSTK_voidSetIntervalPeriodic(u32 Copy_u32Ticks, void (* Copy_ptr)(void))
 
 void MSTC_voidStopInterval(void)
 {
+	CLR_BIT(MSTK->STK_CTRL, STK_TICK_INT_BIT);					/* Clear SysTick interrupt bit */
 	CLR_BIT(MSTK->STK_CTRL, STK_ENABLE_BIT);					/* Clear SysTick enable bit */
+	MSTK->STK_LOAD = 0;											/* Clear SysTick reload value register */
+	MSTK->STK_VAL  = 0;											/* Clear SysTick current value register */
 }
 
 u32  MSTK_u32GetElapsedTime(void)
 {
-	return (MSTK->STK_LOAD - MSTK->STK_VAL);					/* Return elapsed time calculated by [start_ticks - current_ticks] */
+	u32 Local_u32ElapsedTime;
+	Local_u32ElapsedTime = MSTK->STK_LOAD - MSTK->STK_VAL;		/* Calculate elapsed time by [start_ticks - current_ticks] */
+	return Local_u32ElapsedTime;								/* Return elapsed time */
 }
 
 u32  MSTK_u32GetRemainingTime(void)
 {
-	return MSTK->STK_VAL;										/* Return current ticks */
+	u32 Local_u32RemainingTime;
+	Local_u32RemainingTime = MSTK->STK_VAL;						/* Load current ticks */
+	return MSTK->STK_VAL;										/* Return remaining time */
 }
 
 
 void SysTick_Handler(void)
 {
-	MSTK_Callback();											/* Callback sysTick function handler */
+	u8 Local_u8Temporary;
+	
 	if(STK_u8IntervalState == STK_SINGLE_INTERVAL)
 	{
+		CLR_BIT(MSTK->STK_CTRL, STK_TICK_INT_BIT);				/* Clear SysTick interrupt bit */
 		CLR_BIT(MSTK->STK_CTRL, STK_ENABLE_BIT);				/* Clear SysTick enable bit */
+		MSTK->STK_LOAD = 0;										/* Clear SysTick reload value register */
+		MSTK->STK_VAL  = 0;										/* Clear SysTick current value register */
 	}
+	
+	MSTK_Callback();											/* Callback sysTick function handler */
+	Local_u8Temporary = GET_BIT(MSTK->STK_PR);					/* Clear pending interrupt flag */
 }

@@ -36,7 +36,7 @@ typedef struct{
 #define STK_PERIODIC_INTERVAL	4
 
 /* Global variables */
-static void (* MSTK_Callback)(void);	  						/* SysTick callback function pointer */
-volatile u8 STK_u8IntervalState;  								/* Global variable to handle interval state */
+static void (* MSTK_Callback)(void);	  				/* SysTick callback function pointer 		*/
+volatile u8 STK_u8IntervalState;  						/* Global variable to handle interval state */
 
 #endif /* STK_PRIVATE_H */

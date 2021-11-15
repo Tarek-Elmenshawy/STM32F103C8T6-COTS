@@ -6,10 +6,6 @@
 /***********	Function :  STK PHandler			***********/
 /**************************************************************/
 
-/**************************************************************/
-/***	  Guard of file will call one time in .c file		***/
-/**************************************************************/
-
 /* Include libraries */
 #include "std_types.h"
 #include "bit_math.h"
@@ -91,7 +87,7 @@ u32  MSTK_u32GetRemainingTime(void)
 {
 	u32 Local_u32RemainingTime;
 	Local_u32RemainingTime = MSTK->STK_VAL;						/* Load current ticks */
-	return MSTK->STK_VAL;										/* Return remaining time */
+	return Local_u32RemainingTime;								/* Return remaining time */
 }
 
 
@@ -108,5 +104,5 @@ void SysTick_Handler(void)
 	}
 	
 	MSTK_Callback();											/* Callback sysTick function handler */
-	Local_u8Temporary = GET_BIT(MSTK->STK_PR);					/* Clear pending interrupt flag */
+	Local_u8Temporary = GET_BIT(MSTK->STK_CTRL, 16);			/* Clear pending interrupt flag */
 }

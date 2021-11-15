@@ -37,6 +37,7 @@ u8 LED_MATRIX_u8RowPins[LED_MATRIX_NUM_ROWS][2] =
 	{LED_MATRIX_ROW7},
 };
 
+/* Globle variables */
 volatile u8 *LED_MATRIX_u8Frame;
 volatile u8 LED_MATRIX_u8CurrentIndex;
 
@@ -46,6 +47,7 @@ volatile u8 LED_MATRIX_u8CurrentIndex;
 #define LED_MATRIX_ACTIVE_HIGH	3	
 #define LED_MATRIX_ACTIVE_LOW	4
 
+/* Fuction prototypes */
 static void HLED_MATRIX_voidDisableAllLines(u8 Copy_u8LinePin[][2], u8 Copy_u8NumLines);
 static void HLED_MATRIX_voidSetLineValue(u8 Copy_u8LinePin[][2], u8 Copy_u8NumLines, u8 Copy_u8Value);
 static void HLED_MATRIX_voidDisplayNextLine(void);

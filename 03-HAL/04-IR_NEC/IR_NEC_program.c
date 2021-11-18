@@ -70,11 +70,12 @@ static void voidAnalyseFrame(void)
 		{
 			if(HIR_NEC_u32FrameTime[1 + i] >= 2000 && HIR_NEC_u32FrameTime[1 + i] <= 2500)
 			{
-				SET_BIT(HIR_NEC_u32FrameData, i);		/* Set logic 1 */
+				/* Set logic 1 */
+				SET_BIT(HIR_NEC_u32FrameData, i);
 			}
 			else
 			{
-				CLR_BIT(HIR_NEC_u32FrameData, i);		/* Set logic 0 */
+				/* Set logic 0 */
 			}
 		}
 		

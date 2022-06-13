@@ -1,2 +1,2 @@
-# STM32F103C8T6-Drivers
-This repository contains all layers for STM32F103C8T6 microcontroller
+# STM32F103C8T6-COTS
+This repository contains all drivers for STM32F103C8T6 microcontroller
